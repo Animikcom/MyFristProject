@@ -5,9 +5,12 @@
 {% block content %}
 {% if latest_articles_list %}
     {% for a in latest_articles_list %}
-        <a href="{% url 'articles:detail' a.id %}"> {{a.article_title}}</a><HR>
+        <a href="{% url 'articles:detail' a.id %}"> {{a.article_title}}  {{tblaccount.name}}</a><HR>
+            
     {% endfor %}
-
+    {% for b in tblAccount %}
+        <diw>{{b.name}}</diw><HR>
+    {% endfor %}
     {% else %}
     статьи не найдены
     {% endif %}

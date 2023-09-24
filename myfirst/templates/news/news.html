@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<style>
+   #Select1 {
+      border: 1px solid #CCCCCC;
+      border-radius: 4px;
+      background-color: #FFFFFF;
+      background-image: none;
+      color: #000000;
+      font-family: Arial;
+      font-weight: normal;
+      font-style: normal;
+      font-size: 13px;
+      margin: 0;
+      padding: 4px 4px 4px 4px;
+      box-sizing: border-box;
+   }
+   #Select1:focus {
+      border-color: #66AFE9;
+      box-shadow: inset 0px 1px 1px rgba(0,0,0,0.075), 0px 0px 8px rgba(102,175,233,0.60);
+      outline: 0;
+   }
+   
+   a {
+      color: red;
+      
+   }
+</style>
+
+<script>
+   const helloWorlBox = document.getElementById('hello-world')   
+   $.ajax({
+      url: '/filter/',
+      type: "GET",
+      dataType: "json",
+      success: function(response) {
+         console.log('success', response.text)
+         helloWorlBox.textContent = response.text
+      },
+      error: function(error){
+         console.log('error', error)
+      }
+      });
+</script>
+
+{% endblock %}
+
+{% block title %} Блок новостей {% endblock %}
+
+
+
+{% block body %}
+
+   {% csrf_token %}
+   <div id='hello-world'></div>
+
+   <input name="Select1" type="text" list="Select1_datalist" id="Select1" onchange="alert(document.querySelector('#Select1').value);return false;" style="position:absolute;left:30px;top:30px;width:330px;height:31px;z-index:0;">
+   <datalist id="Select1_datalist">
+   {% for n in newss%}
+      <option label='{{ n.FAMILY }}' value='{{ n.FAMILY }}'>
+   {% endfor %}
+   </datalist>
+   <div style="position:absolute; left:30px;top:70px; ;">
+      {% for nn in newss %}
+         <a href="#"> {{nn.FAMILY}} </a>
+      {% endfor %}
+   </div>
+{% endblock %}
+
+
+
